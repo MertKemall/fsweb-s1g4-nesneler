@@ -15,8 +15,9 @@ const serpmeKahvalti = {isim: "Serpme Kahvaltı", fiyat: 16, kategori:"Kahvaltı
 */
 
 
-function MenuElemaniOlustur(/*Kodlar buraya*/){
-	/*Kodlar buraya*/
+function MenuElemaniOlustur(isimobj,fiyatobj,kategoriobj){
+	const menuelemanıobject={isim:isimobj,fiyat:fiyatobj,kategori:kategoriobj,}
+	return menuelemanıobject;
 }
 
 
@@ -30,7 +31,7 @@ function MenuElemaniOlustur(/*Kodlar buraya*/){
 	
 	Örnek: MenuElemaniOlustur("Karışık Pizza",5,"Pizzalar") şunu döndürür: {isim:"Karışık Pizza",fiyat:5,kategori:"Pizzalar"}
 */
-
+console.log(MenuElemaniOlustur("Karışık Pizza",5,"Pizzalar"));
 
 
 /* Görev 2: 
@@ -49,9 +50,27 @@ function MenuElemaniOlustur(/*Kodlar buraya*/){
 const burger = {
 	isim: "Burger", 
 	fiyat: 18, 
-	kategori: "Öğle Yemeği", 
+	kategori: "Öğle Yemeği",
+	
+	  indirim: function(deger) {
+		const indirimOranları = {
+		  "öğretmen": 0.25,
+		  "öğrenci": 0.25,
+		  "diğer": 0.1
+		};
+		
+		if (indirimOranları.hasOwnProperty(deger)) {
+		  return burger.fiyat * (1 - indirimOranları[deger]);
+		} else {
+		  return burger.fiyat;
+		}
+	  }
+	
+  };
+  console.log(burger.indirim("öğretmen"));
 
-}
+  
+  
 
 
 
@@ -71,7 +90,7 @@ const degerlendirmeler = [
 	Yukarıdaki degerlendirmeler dizisini(array) kullanarak:
 	1. Sadece Ahmet'in geribildirimini konsolda görüntüleyin - fonksiyona gerek yok
 */
-
+console.log(degerlendirmeler[5].geribildirim);
 
 
 /*  Görev 4 (ototest yok):  
@@ -79,6 +98,7 @@ const degerlendirmeler = [
 	1. Bu geribildirimi Reyna'nın değerlendirmesine ekleyin - "bu mekan bir harika dostum, yine de garsonun gülümsememesinden puan kırdım"
 	2. degerlendirmeler dizisini konsolda görüntüleyerek çalışmanızı kontrol edin
 */
+degerlendirmeler[7].geribildirim=" bu mekan bir harika dostum, yine de garsonun gülümsememesinden puan kırdım ";
 
 
 
@@ -94,10 +114,18 @@ const degerlendirmeler = [
 */
 
 
-function DegerlendirmeEkle(/*Kodlar buraya */){
-	/*Kodlar buraya */
-	
+function DegerlendirmeEkle(degerlendirmelerr,ısım,sayı,yorum){
+	const yenidegerlendirmeler =  {
+		isim:ısım,
+		puan:sayı,
+		geribildirim:yorum,
+	}
+	degerlendirmelerr[degerlendirmelerr.length]=yenidegerlendirmeler;
+	return degerlendirmelerr;
 }
+
+//console.log(DegerlendirmeEkle(degerlendirmeler,"Hurşut",2,"Boktan yemekler!"));
+//DegerlendirmeEkle(degerlendirmeler,"Mert",5,"Çok iyi yemek.");
 
 
 
@@ -111,11 +139,19 @@ function DegerlendirmeEkle(/*Kodlar buraya */){
 	Örnek: AnahtardanDegerlendirmeAl(degerlendirmeler,0) şunu döndürmeli: "Nalan isimli kişi 5 puan verdi ve şunları yazdı: Mükemmel atmosfer ve mükemmel vegan seçenekleri!"
 */
 
+function AnahtardanDegerlendirmeAl(degerlendirmeler, sayi) {
+	if (sayi >= 0 && sayi < degerlendirmeler.length) {
+	  const degerlendirme = degerlendirmeler[sayi];
+	  return `${degerlendirme.isim} isimli kişi ${degerlendirme.puan} puan verdi ve şunları yazdı: ${degerlendirme.geribildirim}`;
+	} else {
+	  return "Belirtilen indeks dizinin sınırları dışında.";
+	}
+  }
 
-function AnahtardanDegerlendirmeAl(/*Kodlar buraya*/) {
-	/*Kodlar buraya*/
-
-}
+  
+  AnahtardanDegerlendirmeAl(degerlendirmeler, 0);
+  
+  
 
 
 
@@ -130,12 +166,13 @@ function AnahtardanDegerlendirmeAl(/*Kodlar buraya*/) {
 	Örnek: SonDegerlendirmeyiAl(degerlendirmeler) şunu döndürmeli: "Reyna isimli kişi 3.5 puan verdi ve şunları yazdı: bu mekan bir harika dostum, yine de garsonun gülümsememesinden puan kırdım".
 	Not: Eğer 4. görevi başarıyla yaptıysanız kişinin geribildirimi boş görünmemeli
 */
+ 
 
-
-function SonDegerlendirmeyiAl(/*Kodlar buraya*/) {
-	/*Kodlar buraya*/
+function SonDegerlendirmeyiAl(degerlendirmelerson) {
+	const degerlendirmelersonn=degerlendirmelerson[7];
+	return `${degerlendirmelersonn.isim} isimli kişi ${degerlendirmelersonn.puan} puan verdi ve şunları yazdı: ${degerlendirmelersonn.geribildirim}`;
 } 
-
+SonDegerlendirmeyiAl(degerlendirmeler);
 
 
 /////////////// BONUS  GÖRVLER////////////////////
@@ -154,10 +191,17 @@ function SonDegerlendirmeyiAl(/*Kodlar buraya*/) {
 	]
 */
 
-function PuanaGoreDegerlendirmeAl(/* Kodlar buraya */) {
-    /* Kodlar buraya */
+function PuanaGoreDegerlendirmeAl(PuanaGoreDegerlendirme,sayidegeri) {//Bonus Buradaki tutucu.length ifadesi dizinin sonraki boş ifadesini temsil eder.
+    const degerlendırmeHesaplama=PuanaGoreDegerlendirme;//Çünkü diziler sıfırdan saymaya başlarlar 3 elemanlı dizimiz varsa 0,1,2 dolu 3. eleman boş olduğu için yazıldı.
+	const tutucu=[];
+	for (let i = 0; i < degerlendırmeHesaplama.length; i++) {
+		if(sayidegeri<=degerlendırmeHesaplama[i].puan && sayidegeri<=5){
+			 tutucu[tutucu.length]=degerlendırmeHesaplama[i];
+		}	
+	}
+	return tutucu;
 }
-
+console.log(PuanaGoreDegerlendirmeAl(degerlendirmeler,5));
 
 /*  BONUS 2:    
 	UzunDegerlendirmeleriAl fonksiyonuna aşağıdakileri uygulayın:
@@ -166,10 +210,21 @@ function PuanaGoreDegerlendirmeAl(/* Kodlar buraya */) {
 	
 */
 
-function UzunDegerlendirmeleriAl(/* Kodlar buraya */) {
-    /* Kodlar buraya */
-}
+function UzunDegerlendirmeleriAl(DegerlendırmelerAl) {
+    const UzunDegerlendirmeler=[];
 
+	for (let i = 0; i < DegerlendırmelerAl.length; i++) {
+		const DegerlendırmelerAll= DegerlendırmelerAl[i];
+		const kelimeSayisi = DegerlendırmelerAll.geribildirim.split(' ').length;//Boşluklara göre bölücek.
+		if(kelimeSayisi>=15){
+			UzunDegerlendirmeler[UzunDegerlendirmeler.length]=DegerlendırmelerAll;
+			
+		}
+	}
+	return UzunDegerlendirmeler;
+
+}
+console.log(UzunDegerlendirmeleriAl(degerlendirmeler));
 
 /*  BONUS 3:  
 	Bu ek görevde degerlendirmeler dizisi kullanılmayacak!  Bu görevde kendi nesnenizi yaratmanız gerekmektedir.
